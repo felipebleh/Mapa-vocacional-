@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapa Vocacional - Orientação de Carreira V2</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="app">
+        <!-- Start Screen -->
+        <section id="start-screen" class="screen active">
+            <div class="glass-panel hero">
+                <div class="badge">Teste Vocacional</div>
+                <h1>Mapa Vocacional.</h1>
+                <p class="author-credits">Idealizado pelo <strong>Prof. Felipe Camargo</strong><br>Psicólogo CRP:
+                    188233/SP</p>
+                <p>Descubra o seu perfil clínico-comportamental através de testes psicométricos avançados (RIASEC, Big
+                    Five, Avaliação Ipsativa e Testes Situacionais).</p>
+                <div class="form-group">
+                    <label for="student-name">Qual o seu nome?</label>
+                    <input type="text" id="student-name" placeholder="Ex: João da Silva" autocomplete="off">
+                </div>
+
+                <button id="start-btn" class="btn primary-btn" disabled>Iniciar Mapeamento 🚀</button>
+            </div>
+        </section>
+
+        <!-- Quiz Screen -->
+        <section id="quiz-screen" class="screen">
+            <div class="glass-panel quiz-container">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress"></div>
+                </div>
+                <div class="counter" id="question-counter">Fase 1 de 3</div>
+
+                <div class="test-header">
+                    <button id="back-btn" class="btn secondary-btn"
+                        style="padding: 5px 10px; font-size: 0.9rem; margin-right: 15px; border: none; background: rgba(255,255,255,0.1); display: none;">⬅️
+                        Voltar</button>
+                    <span id="test-type-badge" class="type-badge">Inventário Básico</span>
+                </div>
+
+                <h2 id="question-text">Carregando pergunta...</h2>
+                <p id="question-subtext" class="subtext"></p>
+
+                <!-- Dynamic Options Container -->
+                <div id="options-container" class="options-list">
+                    <!-- Likert/Situational options injected here -->
+                </div>
+
+                <!-- Forced Choice Container -->
+                <div id="forced-choice-container" class="forced-choice-hidden">
+                    <div class="fc-row" id="fc-option-1">
+                        <span class="fc-desc">Ação A</span>
+                        <div class="fc-actions">
+                            <button class="fc-btn fc-mais" data-val="mais">Mais Gosto</button>
+                            <button class="fc-btn fc-menos" data-val="menos">Menos Gosto</button>
+                        </div>
+                    </div>
+                    <div class="fc-row" id="fc-option-2">
+                        <span class="fc-desc">Ação B</span>
+                        <div class="fc-actions">
+                            <button class="fc-btn fc-mais" data-val="mais">Mais Gosto</button>
+                            <button class="fc-btn fc-menos" data-val="menos">Menos Gosto</button>
+                        </div>
+                    </div>
+                    <div class="fc-row" id="fc-option-3">
+                        <span class="fc-desc">Ação C</span>
+                        <div class="fc-actions">
+                            <button class="fc-btn fc-mais" data-val="mais">Mais Gosto</button>
+                            <button class="fc-btn fc-menos" data-val="menos">Menos Gosto</button>
+                        </div>
+                    </div>
+                    <button id="fc-submit" class="btn primary-btn fc-submit-btn" disabled>Confirmar Escolha</button>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Results Screen -->
+        <section id="result-screen" class="screen">
+            <div class="glass-panel results-container">
+                <div class="header-results">
+                    <h2>Diagnóstico Concluído, <span id="res-name"></span>! 🎉</h2>
+                    <p class="subtitle">Análise aprofundada baseada em suas preferências e reações a situações reais.
+                    </p>
+                </div>
+
+                <div class="dashboard-grid">
+                    <!-- Card: Radar Chart RIASEC -->
+                    <div class="card chart-card">
+                        <h3>Perfil RIASEC (Alinhamento %)</h3>
+                        <div class="canvas-wrapper">
+                            <canvas id="riasecChart"></canvas>
+                        </div>
+                        <div id="percentage-bars" class="percentage-bars">
+                            <!-- Injected via JS -->
+                        </div>
+                    </div>
+
+                    <!-- Card: Análise Comportamental -->
+                    <div class="card analysis-card">
+                        <h3>🧠 Leitura Psicológica Mapeada</h3>
+                        <div class="analysis-content">
+                            <p class="highlight-text"><strong>Código Predominante:</strong> <span id="riasec-code"
+                                    class="code-badge"></span></p>
+                            <p id="behavioral-reading" class="justified-text"></p>
+                            <div id="clinical-conflict-box" class="alert-box" style="display: none;">
+                                <strong>⚠️ Ponto de Atenção Clínica:</strong> <span id="clinical-conflict-text"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card: Entendendo seu Perfil RIASEC -->
+                <div class="card explanations-card full-width" id="riasec-explanations-container">
+                    <h3>📚 Entendendo seu Perfil Base (Teoria Holland)</h3>
+                    <div id="riasec-explanations" style="display: flex; flex-direction: column; gap: 15px;">
+                        <!-- Injected via JS -->
+                    </div>
+                </div>
+
+                <!-- Card: Match de Carreiras e Universidades -->
+                <div class="card matches-card full-width">
+                    <h3>🎯 Match de Carreiras e Trilhas de Formação</h3>
+                    <div class="career-list-container">
+                        <ul id="career-matches" class="career-list expanded-list">
+                            <!-- Injected via JS -->
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Card: Próximos Passos (Ensino Médio) -->
+                <div class="card golden-tip-card full-width">
+                    <h3>💡 Próximos Passos no Ensino Médio: Transforme Resultados em Ação</h3>
+                    <div style="font-size: 1.05rem; line-height: 1.6;">
+                        <ul style="margin-left: 20px; color: #cbd5e1; margin-bottom: 15px;" id="hs-tips-list">
+                            <li style="margin-bottom: 10px;"><strong>Pesquise sobre as Grades Curriculares:</strong>
+                                Acesse os sites das universidades recomendadas acima e leia as disciplinas dos cursos
+                                indicados. Veja se o que você vai estudar todos os dias realmente te motiva.</li>
+                            <li style="margin-bottom: 10px;"><strong>Busque "Um Dia na Vida" no YouTube:</strong>
+                                Pesquise por vídeos como "Rotina de um Engenheiro de Dados" ou "Um dia como Psicólogo".
+                                O dia a dia real importa mais que o nome bonito da profissão.</li>
+                            <li style="margin-bottom: 10px;"><strong>Converse com Alunos e Profissionais:</strong> Use o
+                                Instagram ou LinkedIn para mandar uma mensagem amigável para pessoas que já estudam ou
+                                trabalham na área. Pergunte quais os maiores desafios e o que eles mais gostam.</li>
+                            <li style="margin-bottom: 10px;"><strong>Visite Feiras de Profissões e
+                                    Universidades:</strong> Fique de olho no calendário das federais e particulares da
+                                sua região (como USP, UNICAMP, ou a instituição local). Elas sempre abrem as portas para
+                                estudantes do Ensino Médio.</li>
+                            <li style="margin-bottom: 10px;"><strong>Dica Estratégica do Seu Teste:</strong> <span
+                                    id="golden-tip"></span></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Actions -->
+                <div class="action-buttons" id="action-buttons-container">
+                    <button id="download-img-btn" class="btn primary-btn email-btn">
+                        📸 Baixar Resultado (Imagem)
+                    </button>
+                    <a id="email-link" href="#" class="btn primary-btn email-btn" target="_blank">
+                        ✉️ Enviar Mapa Completo
+                    </a>
+                    <button id="restart-btn" class="btn secondary-btn">Refazer o Teste</button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Bibliotecas Externas -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="app.js"></script>
+</body>
+
+</html>
