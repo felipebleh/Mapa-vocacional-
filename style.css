@@ -327,6 +327,10 @@ p {
     font-size: 1.05rem;
     font-weight: 600;
     transition: all 0.2s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
 }
 
 .fc-btn:hover:not(:disabled) {
@@ -579,9 +583,27 @@ p {
     .action-buttons {
         flex-direction: column;
     }
+}
+
+/* Telas Pequenas (Celular) - Otimização do Forced Choice */
+@media (max-width: 600px) {
+    .fc-row {
+        padding: 15px;
+    }
+
+    .fc-text {
+        font-size: 0.95rem;
+        margin-bottom: 12px;
+        line-height: 1.4;
+    }
 
     .fc-actions {
-        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .fc-btn {
+        padding: 10px 5px;
+        font-size: 0.9rem;
     }
 }
 
