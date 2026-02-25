@@ -280,7 +280,7 @@ function renderQuestion() {
     // Reset Containers
     els.optContainer.innerHTML = '';
     els.optContainer.style.display = 'none';
-    els.fcContainer.style.display = 'none';
+    els.fcContainer.className = 'forced-choice-hidden';
     els.fcSubmit.disabled = true;
 
     if (q.type === 'likert' || q.type === 'likert_b5') {
@@ -307,7 +307,7 @@ function renderQuestion() {
         });
     }
     else if (q.type === 'forced') {
-        els.fcContainer.style.display = 'flex';
+        els.fcContainer.className = 'forced-choice-active';
         fcState = { mais: null, menos: null, qData: q };
 
         q.options.forEach((opt, index) => {
